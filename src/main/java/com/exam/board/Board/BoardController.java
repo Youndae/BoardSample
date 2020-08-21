@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BoardController {
@@ -30,7 +31,6 @@ public class BoardController {
 	@RequestMapping("/insertform")
 	public String insertForm() throws Exception{
 		
-		
 		return "insertForm";
 	}
 	
@@ -43,31 +43,46 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/boardDetail")
-	public String boardDetail(@ModelAttribute("boardVO") BoardVO boardVO, Model model, HttpServletRequest request) throws Exception{
+	public String boardDetail(BoardVO boardVO, Model model, HttpServletRequest request) throws Exception{
+				
 		
-		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		System.out.println("/////////////boardDetail///////////");
 		
-		System.out.println("//////////////boardNo : "+boardNo+"////////////");
+		/* String boardNumber = request.getParameter("boardNo"); */
 		
-		boardVO.setBoardNo(boardNo);
+		System.out.println("///////////boardNumber : "+boardVO.getBoardNo()+"/////////");
 		
-		BoardVO detail = boardMapper.boardDetail(boardVO);
+		/* int boardNo = Integer.parseInt(request.getParameter("boardNo")); */
 		
-		model.addAttribute("detail", detail);
+		System.out.println("//////////////boardNo : "+boardVO.getBoardNo()+"////////////");
 		
-		return "board/boardDetail";
+		
+		/* boardVO.setBoardNo(boardNo); */
+		  
+		  BoardVO detail = boardMapper.boardDetail(boardVO);
+		  
+		  model.addAttribute("detail", detail);
+		 
+		
+		return "boardDetail";
 	}
 	
 	@RequestMapping("/updateform")
-	public String updateform(@ModelAttribute("boardVO") BoardVO boardVO, Model model) throws Exception{
+	public String updateform(@RequestParam("boardNo")int boardNo, BoardVO boardVO, Model model) throws Exception{
 		
-		try {
-			boardMapper.updateBoard(boardVO);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+	
+		model.addAttribute("upDetail", boardMapper.updateForm(boardVO));
+		
+		
+		return "updateForm";
+		
+	}
+	
+	@RequestMapping("/updateBoard")
+	public String updateBoard(@RequestParam("boardNo") int boardNo, BoardVO boardVO) throws Exception{
+		
+		boardMapper.updateBoard(boardVO);
 		
 		return "redirect:/boardList";
-		
 	}
 }

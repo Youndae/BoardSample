@@ -28,7 +28,7 @@
 				<c:forEach var="result" items="${list}" varStatus="status">
 					<tr>
 						<td><c:out value="${result.boardNo}"/></td>
-						<td><a href='#' onClick='detail(${result.boardNo})'><c:out value="${result.subject}"/></a></td>
+						<td><a href="/board/boardDetail?boardNo=${result.boardNo}"><c:out value="${result.subject}"/></a></td>
 						<td><c:out value="${result.writer}"/></td>
 						<td><c:out value="${result.reg_datetime}"/></td>
 					</tr>				
@@ -39,19 +39,6 @@
 			<button type="button" onclick="location.href='/board/insertform'">글쓰기</button>
 		</div>
 	</form>
-	<script>
-			
-		function detail(boardNo){
-			
-			var form = document.getElementById("boardForm");
-			var url = "<c:url value='/boardDetail'/>";
-			
-			url = url + "?boardNo" + boardNo;
-			
-			form.action = url;
-			form.submit();
-		}
-	</script>
 </div>
 </body>
 </html>

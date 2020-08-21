@@ -13,6 +13,8 @@ public interface BoardMapper {
 	public List<BoardVO> boardList(BoardVO boardVO) throws Exception;
 	//등록
 	public void insertBoard(BoardVO boardVO) throws Exception;
+	
+	public BoardVO updateForm(BoardVO boardVO) throws Exception;
 	//수정
 	public void updateBoard(BoardVO boardVO) throws Exception;
 	//삭제

@@ -15,6 +15,14 @@
 		value(#{subject}, #{writer}, now(), #{content})
 	</insert>
 	
+	<select id="updateForm" resultType="com.exam.board.Board.BoardVO">
+		select *
+		FROM sampleboard
+		WHERE boardNo = #{boardNo}
+	</select>
+	
+	
+	
 	<update id="updateBoard">
 		UPDATE sampleboard set
 		subject = #{subject},
