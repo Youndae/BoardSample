@@ -18,7 +18,7 @@
 			<thead>
 				<tr>
 					<th>글번호</th>
-					<th>제%nbsp;목</th>
+					<th>제   목</th>
 					<th>작성자</th>
 					<th>작성일</th>
 					<th>조회수</th>
@@ -36,18 +36,11 @@
 			</tbody>
 		</table>
 		<div>
-			<a href='#' onClick='write()'>글쓰기</a>
+			<button type="button" onclick="location.href='/board/insertform'">글쓰기</button>
 		</div>
 	</form>
 	<script>
-		function write(){
 			
-			var form = document.getElementById("boardForm");
-			
-			form.action="<c:url value='/insertform'/>";
-			form.submit();
-		}
-		
 		function detail(boardNo){
 			
 			var form = document.getElementById("boardForm");

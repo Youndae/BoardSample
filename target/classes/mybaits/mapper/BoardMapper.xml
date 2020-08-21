@@ -3,31 +3,31 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-	<mapper namespace="com.exam.Board.BoardMapper">
+	<mapper namespace="com.exam.board.Board.BoardMapper">
 	
-	<select id="boardList" resultType="com.exam.Board.BoardVO">
-		SELECT * FROM board
+	<select id="boardList" resultType="com.exam.board.Board.BoardVO">
+		select * from sampleboard
 	</select>
 	
 	<insert id="insertBoard">
 		INSERT INTO
-		board(subject, writer, reg_datetime, content)
+		sampleboard(subject, writer, reg_datetime, content)
 		value(#{subject}, #{writer}, now(), #{content})
 	</insert>
 	
 	<update id="updateBoard">
-		UPDATE board set
+		UPDATE sampleboard set
 		subject = #{subject},
 		content = #{content}
 		WHERE boardNo = #{boardNo}
 	</update>
 	
 	<delete id="deleteBoard">
-		DELETE FROM board WHERE boardNo = #{boardNo}
+		DELETE FROM sampleboard WHERE boardNo = #{boardNo}
 	</delete>
 	
-	<select id="boardDetail" resultType="com.exam.Board.BoardVO">
-		SELECT * FROM board
+	<select id="boardDetail" resultType="com.exam.board.Board.BoardVO">
+		SELECT * FROM sampleboard
 		WHERE boardNo = #{boardNo}
 	</select>
 	

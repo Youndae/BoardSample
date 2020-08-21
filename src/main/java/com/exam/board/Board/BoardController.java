@@ -15,29 +15,29 @@ public class BoardController {
 
 	
 	@Autowired
-	private BoardService boardService;
+	private BoardMapper boardMapper;
 	
 	@RequestMapping("/boardList")
 	public String boardList(BoardVO boardVO, Model model) throws Exception{
 		
-		List<BoardVO> list = boardService.boardList(boardVO);
+		List<BoardVO> list = boardMapper.boardList(boardVO);
 		
 		model.addAttribute("list", list);
 		
-		return "board/boardList";
+		return "boardList";
 	}
 	
 	@RequestMapping("/insertform")
 	public String insertForm() throws Exception{
 		
 		
-		return "board/insertForm";
+		return "insertForm";
 	}
 	
 	@RequestMapping("/insertBoard")
 	public String insertBoard(@ModelAttribute("boardVO") BoardVO boardVO) throws Exception{
 		
-		boardService.insertBoard(boardVO);
+		boardMapper.insertBoard(boardVO);
 		
 		return "redirect:/boardList";
 	}
@@ -46,9 +46,12 @@ public class BoardController {
 	public String boardDetail(@ModelAttribute("boardVO") BoardVO boardVO, Model model, HttpServletRequest request) throws Exception{
 		
 		int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+		
+		System.out.println("//////////////boardNo : "+boardNo+"////////////");
+		
 		boardVO.setBoardNo(boardNo);
 		
-		BoardVO detail = boardService.boardDetail(boardVO);
+		BoardVO detail = boardMapper.boardDetail(boardVO);
 		
 		model.addAttribute("detail", detail);
 		
@@ -59,7 +62,7 @@ public class BoardController {
 	public String updateform(@ModelAttribute("boardVO") BoardVO boardVO, Model model) throws Exception{
 		
 		try {
-			boardService.updateBoard(boardVO);
+			boardMapper.updateBoard(boardVO);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

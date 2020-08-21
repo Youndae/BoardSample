@@ -2,8 +2,11 @@ package com.exam.board.Board;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.exam.board.Board.BoardVO;
 
+@Mapper
 public interface BoardMapper {
 
 	//리스트

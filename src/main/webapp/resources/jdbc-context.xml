@@ -17,30 +17,23 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
     ">
 
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    	<property name="locations">
-    		<list>
-    			<value>classpath:/properties/jdbc.properties</value>
-    		</list>
-    	</property>
-    </bean>
     
-    <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    	<property name="driverClassName" value="${jdbc.driver}"/>
-    	<property name="url" value="${jdbc.url}"/>
-    	<property name="username" value="${jdbc.username}"/>
-    	<property name="password" value="${jdbc.password}"/>
-    </bean>
     
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-    	<constructor-arg ref="dataSourceSpied"/>
-    	<property name="logFormatter">
-    		<bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
-    			<property name="loggingType" value="MULTI_LINE"/>
-    			<property name="sqlPrefix" value="SQL:::"/>
-    		</bean>
-    	</property>
-    </bean>
+    <context:property-placeholder location="classpath:properties/jdbc.properties" />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		p:driverClassName="${jdbc.mysql.driverClassName}"
+		p:url="${jdbc.mysql.url}" p:username="${jdbc.mysql.username}"
+		p:password="${jdbc.mysql.password}"/>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mybatis/mapper/**/*Mapper.xml" />
+		<property name="typeAliasesPackage"	value="com.exam.board"/>
+		<property name="transactionFactory">
+			<bean class="org.apache.ibatis.transaction.managed.ManagedTransactionFactory" />
+		</property>
+	</bean>
     
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
     	<constructor-arg ref="sqlSessionFactory"/>
