@@ -32,6 +32,7 @@
 						<a href='#' onClick='update()'>수정</a>
 						<a href='#' onClick='cancel()'>목록</a>
 						<a href='#' onClick='reply()'>답변</a>
+						<a href='#' onClick='del()'>삭제</a>
 					</div>
 				</div>
 			</div>
@@ -57,6 +58,13 @@
 				var form = document.getElementById("viewForm");
 				
 				form.action = "<c:url value='/replyForm'/>";
+				form.submit();
+			}
+			
+			function del(){
+				var form = document.getElementById("viewForm");
+				
+				form.action = "<c:url value='/deleteBoard'/>";
 				form.submit();
 			}
 		</script>

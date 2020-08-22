@@ -44,24 +44,9 @@ public class BoardController {
 	
 	@RequestMapping("/boardDetail")
 	public String boardDetail(BoardVO boardVO, Model model, HttpServletRequest request) throws Exception{
-				
-		
-		System.out.println("/////////////boardDetail///////////");
-		
-		/* String boardNumber = request.getParameter("boardNo"); */
-		
-		System.out.println("///////////boardNumber : "+boardVO.getBoardNo()+"/////////");
-		
-		/* int boardNo = Integer.parseInt(request.getParameter("boardNo")); */
-		
-		System.out.println("//////////////boardNo : "+boardVO.getBoardNo()+"////////////");
-		
-		
-		/* boardVO.setBoardNo(boardNo); */
+						  
 		  
-		  BoardVO detail = boardMapper.boardDetail(boardVO);
-		  
-		  model.addAttribute("detail", detail);
+		  model.addAttribute("detail", boardMapper.boardDetail(boardVO));
 		 
 		
 		return "boardDetail";
@@ -82,6 +67,15 @@ public class BoardController {
 	public String updateBoard(@RequestParam("boardNo") int boardNo, BoardVO boardVO) throws Exception{
 		
 		boardMapper.updateBoard(boardVO);
+		
+		return "redirect:/boardList";
+	}
+	
+	@RequestMapping("/deleteBoard")
+	public String deleteBoard(@RequestParam("boardNo") int boardNo, BoardVO boardVO) throws Exception{
+		
+		
+		boardMapper.deleteBoard(boardVO);
 		
 		return "redirect:/boardList";
 	}
